@@ -4,6 +4,7 @@
 #include <math.h>
 #include <vector>
 #include <numeric>
+//#include <algorithm>
 #include "classifier.h"
 
 /**
@@ -66,7 +67,7 @@ void GNB::train(vector<vector<double>> data, vector<string> labels)
       means[label][f] = mean;
       std::transform(totals_by_label[label][f].begin(), totals_by_label[label][f].end(), diff.begin(), [mean](double x) { return x - mean; });
       sq_sum = inner_product(diff.begin(), diff.end(), diff.begin(), 0.0);
-      stdev = sqrt(sq_sum / (totals_by_label[label][f].size() - 1));
+      stdev = sqrt(sq_sum / (totals_by_label[label][f].size()-1));
       stds[label][f] = stdev;
     }
   }

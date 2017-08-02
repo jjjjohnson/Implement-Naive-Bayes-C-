@@ -4,7 +4,7 @@
 #include <math.h>
 #include <vector>
 #include <numeric>
-//#include <algorithm>
+#include <algorithm>
 #include "classifier.h"
 
 /**
@@ -69,13 +69,16 @@ void GNB::train(vector<vector<double>> data, vector<string> labels)
       sq_sum = inner_product(diff.begin(), diff.end(), diff.begin(), 0.0);
       stdev = sqrt(sq_sum / (totals_by_label[label][f].size()-1));
       stds[label][f] = stdev;
+      cout << label << " " << f << ": mean: " << mean << " standard deviaction: " << pow(stdev, 2);
+      cout << endl;
     }
+    cout << endl;
   }
 }
 
 double GNB::gaussian_prob(double obs, double mu, double sig){
   double num = pow((obs - mu), 2);
-  double denum = pow(2*sig, 2);
+  double denum = 2*pow(sig, 2);
   double norm = 1 / sqrt(2*M_PI*pow(sig, 2));
   return norm * exp(-num/denum);
 }
